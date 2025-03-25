@@ -97,6 +97,7 @@ export function PdfEditor({pdfUrl}: { pdfUrl: string }) {
     }
 
     const handleReset = () => {
+        router.push("/");
         reset()
     }
 

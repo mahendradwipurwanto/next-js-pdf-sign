@@ -261,8 +261,8 @@ export function PdfPreview({
     }
 
     const handleReset = () => {
-        reset()
         router.push("/")
+        reset()
     }
 
     return (

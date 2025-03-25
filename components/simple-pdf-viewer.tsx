@@ -54,6 +54,11 @@ export default function SimplePdfViewer({ pdfUrl, reset }: { pdfUrl: string; res
         router.push("/editor");
     };
 
+    const handleReset = () => {
+        router.push("/");
+        reset();
+    }
+
     return (
         <div>
             <div className="flex flex-col sm:flex-row justify-end items-start sm:items-center gap-4 mb-4">
@@ -61,7 +66,7 @@ export default function SimplePdfViewer({ pdfUrl, reset }: { pdfUrl: string; res
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button variant="destructive" size="sm" onClick={reset}>
+                                <Button variant="destructive" size="sm" onClick={handleReset}>
                                     <AlarmSmoke className="h-4 w-4 mr-1" /> Reset
                                 </Button>
                             </TooltipTrigger>
