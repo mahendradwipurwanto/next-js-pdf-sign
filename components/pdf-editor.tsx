@@ -36,7 +36,7 @@ export function PdfEditor({pdfUrl}: { pdfUrl: string }) {
     const [pageHeight, setPageHeight] = useState<number | null>(null)
     const [pageWidth, setPageWidth] = useState<number | null>(null)
     const [loading, setLoading] = useState(true)
-    const [isProcess, setProcess] = useState(true)
+    const [isProcess, setProcess] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
     const router = useRouter()
     const {signatureFields, setSignatureFields, reset} = useFileStore();
