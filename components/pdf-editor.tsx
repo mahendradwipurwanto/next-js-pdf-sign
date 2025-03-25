@@ -92,6 +92,7 @@ export function PdfEditor({pdfUrl}: { pdfUrl: string }) {
     }
 
     const handleSubmit = () => {
+        setLoading(true)
         router.push("/preview");
     }
 

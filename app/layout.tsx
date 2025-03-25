@@ -6,9 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "PDF Signature App",
-  description: "Upload PDFs and add signature fields",
-    generator: 'v0.dev'
+  title: "PDF Signature",
+  description: "Upload PDFs and add signature fields"
 }
 
 export default function RootLayout({
