@@ -1,13 +1,24 @@
 "use client"
 
-import {useState, useEffect, useRef} from "react"
+import React, {useState, useEffect, useRef} from "react"
 import dynamic from "next/dynamic"
 import {Button} from "@/components/ui/button"
 import {Card} from "@/components/ui/card"
 import {Badge} from "@/components/ui/badge"
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip"
 import {Skeleton} from "@/components/ui/skeleton"
-import {ChevronLeft, ChevronRight, FileText, Check, ZoomIn, ZoomOut, Loader2, Download, Pen} from "lucide-react"
+import {
+    ChevronLeft,
+    ChevronRight,
+    FileText,
+    Check,
+    ZoomIn,
+    ZoomOut,
+    Loader2,
+    Download,
+    Pen,
+    AlarmSmoke
+} from "lucide-react"
 import {useToast} from "@/hooks/use-toast"
 import {SignatureOptionsModal} from "./signature-options-modal"
 import {SignatureDisplay} from "./signature-display"
@@ -15,6 +26,8 @@ import fontkit from '@pdf-lib/fontkit';
 
 // Import PDF.js worker
 import "@/lib/pdf-worker"
+import {useFileStore} from "@/store/fileStore";
+import {useRouter} from "next/navigation";
 
 // Dynamically import react-pdf to avoid SSR issues
 const PDFDocument = dynamic(() => import("react-pdf").then((mod) => mod.Document), {
@@ -54,7 +67,9 @@ export function PdfPreview({
     const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null)
     const [finalizing, setFinalizing] = useState(false)
     const canvasRef = useRef<HTMLCanvasElement>(null)
+    const {reset} = useFileStore()
     const {toast} = useToast()
+    const router = useRouter()
 
     // Set up PDF.js worker
     useEffect(() => {
@@ -245,6 +260,11 @@ export function PdfPreview({
         }
     }
 
+    const handleReset = () => {
+        reset()
+        router.push("/")
+    }
+
     return (
         <div className="flex flex-col space-y-4">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -427,18 +447,32 @@ export function PdfPreview({
                         </div>
                     )}
                 </div>
+                <div className="flex items-center gap-2">
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button variant="destructive" onClick={handleReset}>
+                                    <AlarmSmoke className="h-4 w-4 mr-1"/> Reset
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Reset all the current progress, and upload new file</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
 
-                <Button onClick={handleFinalizeDocument} className="gap-2" disabled={finalizing}>
-                    {finalizing ? (
-                        <>
-                            <Loader2 className="h-4 w-4 animate-spin"/> Processing...
-                        </>
-                    ) : (
-                        <>
-                            <Check className="h-4 w-4"/> Finalize & Download
-                        </>
-                    )}
-                </Button>
+                    <Button onClick={handleFinalizeDocument} className="gap-2" disabled={finalizing}>
+                        {finalizing ? (
+                            <>
+                                <Loader2 className="h-4 w-4 animate-spin"/> Processing...
+                            </>
+                        ) : (
+                            <>
+                                <Check className="h-4 w-4"/> Finalize & Download
+                            </>
+                        )}
+                    </Button>
+                </div>
             </div>
 
             {/* Signature options modal */}

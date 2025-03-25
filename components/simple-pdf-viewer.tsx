@@ -61,7 +61,7 @@ export default function SimplePdfViewer({ pdfUrl, reset }: { pdfUrl: string; res
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button variant="outline" size="sm" onClick={reset}>
+                                <Button variant="destructive" size="sm" onClick={reset}>
                                     <AlarmSmoke className="h-4 w-4 mr-1" /> Reset
                                 </Button>
                             </TooltipTrigger>

@@ -11,10 +11,9 @@ import {Card} from "@/components/ui/card"
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip"
 import {Badge} from "@/components/ui/badge"
 import {Skeleton} from "@/components/ui/skeleton"
-import {ChevronLeft, ChevronRight, FileText, Save, ZoomIn, ZoomOut, Loader2, AlarmSmoke} from "lucide-react"
+import {ChevronLeft, ChevronRight, FileText, Save, ZoomIn, ZoomOut, Loader2, AlarmSmoke, Check} from "lucide-react"
 import {useFileStore} from "@/store/fileStore";
 import {SignatureFieldData} from "@/store/fileStore";
-import { submitSignatureData } from '@/lib/api';
 
 // Import PDF.js worker
 import "@/lib/pdf-worker"
@@ -138,7 +137,7 @@ export function PdfEditor({pdfUrl}: { pdfUrl: string }) {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Button variant="outline" size="sm" onClick={() => handleReset()}>
+                                <Button variant="destructive" size="sm" onClick={() => handleReset()}>
                                     <AlarmSmoke className="h-4 w-4 mr-1"/> Reset
                                 </Button>
                             </TooltipTrigger>
@@ -265,8 +264,16 @@ export function PdfEditor({pdfUrl}: { pdfUrl: string }) {
                             ? "Drag to move • Drag corner to resize"
                             : "Click on the document to add a signature field"}
                     </p>
-                    <Button onClick={handleSubmit} disabled={signatureFields.length === 0}>
-                        <Save className="h-4 w-4 mr-1"/> Submit for Approval
+                    <Button onClick={handleSubmit} disabled={signatureFields.length === 0 || loading}>
+                        {loading ? (
+                            <>
+                                <Loader2 className="h-4 w-4 animate-spin"/> Processing...
+                            </>
+                        ) : (
+                            <>
+                                <Save className="h-4 w-4x"/> Proceed to signing
+                            </>
+                        )}
                     </Button>
                 </div>
             </div>
