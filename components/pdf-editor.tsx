@@ -36,6 +36,7 @@ export function PdfEditor({pdfUrl}: { pdfUrl: string }) {
     const [pageHeight, setPageHeight] = useState<number | null>(null)
     const [pageWidth, setPageWidth] = useState<number | null>(null)
     const [loading, setLoading] = useState(true)
+    const [isProcess, setProcess] = useState(true)
     const containerRef = useRef<HTMLDivElement>(null)
     const router = useRouter()
     const {signatureFields, setSignatureFields, reset} = useFileStore();
@@ -92,7 +93,7 @@ export function PdfEditor({pdfUrl}: { pdfUrl: string }) {
     }
 
     const handleSubmit = () => {
-        setLoading(true)
+        setProcess(true)
         router.push("/preview");
     }
 
@@ -266,8 +267,8 @@ export function PdfEditor({pdfUrl}: { pdfUrl: string }) {
                             ? "Drag to move • Drag corner to resize"
                             : "Click on the document to add a signature field"}
                     </p>
-                    <Button onClick={handleSubmit} disabled={signatureFields.length === 0 || loading}>
-                        {loading ? (
+                    <Button onClick={handleSubmit} disabled={signatureFields.length === 0 || isProcess}>
+                        {isProcess ? (
                             <>
                                 <Loader2 className="h-4 w-4 animate-spin"/> Processing...
                             </>
