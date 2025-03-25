@@ -51,7 +51,7 @@
     "next": "15.1.0",
     "next-themes": "^0.4.4",
     "pdf-lib": "^1.17.1",
-    "pdfjs-dist": "^3.2.146",
+    "pdfjs-dist": "3.2.146",
     "react": "^19",
     "react-day-picker": "8.10.1",
     "react-dom": "^19",
